@@ -1,49 +1,62 @@
-# lightningjs
+# Ocean Notes - LightningJS (Blits) Frontend
 
-### lightningjs
+A modern notes application built with Lightning 3 (Blits). It follows the Ocean Professional theme:
+- primary: #2563EB
+- secondary/success: #F59E0B
+- error: #EF4444
+- background: #f9fafb
+- surface: #ffffff
+- text: #111827
 
+Features:
+- Create, select, edit, and delete notes
+- Search by title
+- Local persistence via localStorage
+- Smooth transitions, rounded corners, subtle shadows
 
-Welcome to the _lightningjs_ Lightning 3 Blits App!
+Run locally:
+1) npm install
+2) npm run dev
+3) Open the URL on port 3000
 
-### Getting started
+Layout:
+- Header with app title
+- Left panel: searchable notes list with a Create button
+- Right panel: detail editor (title + body) and a Delete button (tap twice to confirm)
 
-Follow the steps below to get your Lightning 3 Blits App up and running in no time.
+Keyboard:
+- Arrow keys navigate the list
+- Enter toggles focus between title and body in the editor; press on buttons to activate
+- Back switches editor focus back to title
+- Printable keys type into the active field
+- Backspace deletes characters
 
-#### IDE setup
+Persistence:
+- Notes are saved to localStorage under key notes_app_items_v1.
+- You can clear storage from DevTools if needed.
 
-It is highly recommended to install the Blits [VS-code extension](https://marketplace.visualstudio.com/items?itemName=LightningJS.lightning-blits) which will give you template highlighting and improved autocompletion.
+Extending with a backend:
+- Replace loadNotes/saveNotes/createNote/upsertNote/deleteNote in src/utils/storage.js with HTTP calls to your API.
+- Recommended endpoints:
+  - GET /notes -> [{id,title,body,updatedAt}]
+  - POST /notes -> {id,title,body,updatedAt}
+  - PUT /notes/:id -> {id,title,body,updatedAt}
+  - DELETE /notes/:id -> 204
+- Keep the same note shape so UI logic remains the same.
 
-#### Project setup
+Code structure:
+- src/pages/Home.js: page layout and wiring
+- src/components/Header.js: header with title and helper chip
+- src/components/NotesList.js: search bar, create, list items, delete
+- src/components/NoteEditor.js: title/body editor and delete
+- src/utils/storage.js: local persistence helpers
+- src/styles/theme.css: design tokens documentation
 
-Run the following command to install the dependencies of your App:
+Lightning/Blits notes:
+- No DOM/HTML/CSS for rendering; UI is WebGL. The theme.css is provided as a developer aid.
+- Use Blits.Application(), Blits.Component(), and RouterView as already configured.
 
-```sh
-npm install
-```
-
-#### Build and run in development mode
-
-Run your App in development mode:
-
-```sh
-npm run dev
-```
-
-This command uses Vite to fire up a local server, with Hot Reloading support. Visit the provided link in your web browser to see the App in action.
-
-#### Build the App for production
-
-Create an optimized and minified version of your App:
-
-```sh
-npm run build
-```
-
-This will create a production version of the app in the `dist` folder.
-
-
-### Resources
-
-- [Blits documentation](https://lightningjs.io/v3-docs/blits/getting_started/intro.html) - official documentation
-- [Blits Example App](https://blits-demo.lightningjs.io/?source=true) - a great reference to learn by example
-- [Blits Components](https://lightningjs.io/blits-components.html) - off-the-shelf, basic and performant reference components
+Resources:
+- Blits docs: https://lightningjs.io/v3-docs/blits/getting_started/intro.html
+- Blits Example App: https://blits-demo.lightningjs.io/?source=true
+- Blits Components: https://lightningjs.io/blits-components.html
